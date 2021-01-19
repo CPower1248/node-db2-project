@@ -1,4 +1,4 @@
-const db = require("../../data/dbConfig")
+const db = require("../../data/db-config")
 
 module.exports = {
   findAll,
@@ -6,8 +6,17 @@ module.exports = {
   insert
 }
 
-function findAll() {}
+function findAll() {
+  return db("cars")
+}
 
-function findById(id) {}
+function findById(id) {
+  return db("cars").where({ id }).first()
+}
 
-function insert(body) {}
+function insert(body) {
+  return db("cars").insert(body)
+    .then(([id]) => {
+      return db("cars").where({ id }).first()
+    })
+}
